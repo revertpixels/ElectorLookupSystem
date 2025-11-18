@@ -355,77 +355,7 @@
         document.getElementById('elInput').focus();
     };
 
-    function findSL() {
-        const input = document.getElementById('elInput').value;
-        const resultContent = document.getElementById('resultContent');
 
-        // Clean and standardize input
-        const cleanedInput = input.trim();
-
-        if (cleanedInput === '') {
-            resultContent.innerHTML = '<p class="error">Please enter an EL number</p>';
-            return;
-        }
-
-        // Try multiple lookup strategies
-        let slNumber = null;
-
-        // Strategy 1: Direct lookup (exact match)
-        if (elToSlMap.hasOwnProperty(cleanedInput)) {
-            slNumber = elToSlMap[cleanedInput];
-        }
-
-        // Strategy 2: Try with leading zero (for single digits)
-        if (!slNumber && cleanedInput.length === 1) {
-            const paddedInput = '0' + cleanedInput;
-            if (elToSlMap.hasOwnProperty(paddedInput)) {
-                slNumber = elToSlMap[paddedInput];
-            }
-        }
-
-        // Strategy 3: Try without leading zero (if input has leading zero)
-        if (!slNumber && cleanedInput.startsWith('0') && cleanedInput.length === 2) {
-            const unpaddedInput = cleanedInput.substring(1);
-            if (elToSlMap.hasOwnProperty(unpaddedInput)) {
-                slNumber = elToSlMap[unpaddedInput];
-            }
-        }
-
-        // Strategy 4: Try without leading zeros for longer numbers
-        if (!slNumber && cleanedInput.startsWith('0')) {
-            const unpaddedInput = parseInt(cleanedInput, 10).toString();
-            if (elToSlMap.hasOwnProperty(unpaddedInput)) {
-                slNumber = elToSlMap[unpaddedInput];
-            }
-        }
-
-        // Display result
-        if (slNumber) {
-            // Convert SL to number (remove leading zeros)
-            const slNumberInt = parseInt(slNumber, 10);
-
-            // Calculate page number
-            const pageNumber = calculatePageNumber(slNumberInt);
-
-            resultContent.innerHTML = `
-            <div class="result-item">
-                <div class="result-label">Page</div>
-                <div class="result-number">${pageNumber}</div>
-            </div>
-            <div class="divider"></div>
-            <div class="result-item">
-                <div class="result-label">Running Sl. No.</div>
-                <div class="result-number">${slNumberInt}</div>
-            </div>
-        `;
-        } else {
-            resultContent.innerHTML = '<p class="error">❌ Not Found</p>';
-        }
-
-        // Clear the input field after search
-        document.getElementById('elInput').value = '';
-        document.getElementById('elInput').focus();
-    }
 </script>
 </body>
 </html>
