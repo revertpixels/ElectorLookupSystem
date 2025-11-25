@@ -59,6 +59,10 @@
             border-radius: 8px;
             font-size: 18px;
             transition: border-color 0.3s;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: white;
         }
 
         input[type="text"]:focus {
@@ -149,6 +153,8 @@
         <input
                 type="text"
                 id="elInput"
+                inputmode="numeric"
+                pattern="[0-9]*"
                 placeholder="e.g., 01, 7, 42"
                 autocomplete="off"
         >
@@ -354,8 +360,6 @@
     window.onload = function() {
         document.getElementById('elInput').focus();
     };
-
-
 </script>
 </body>
 </html>
